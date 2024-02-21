@@ -1,20 +1,23 @@
 <?php
 
 require 'includes/routes.php';
+require 'classes/User.php';
+require 'classes/Database.php';
 
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if ($_POST['name'] == 'a' && $_POST['pass'] == 'b') {
+    $db = new Database();
+    $connection = $db->getConnection();
+
+    if (User::authenticate($connection, $_POST['name'], $_POST['pass'])) {
         session_regenerate_id(true);
         $_SESSION['is_logged_in'] = true;
-        redirect("/blog_php_mysql_tailwind");
+        redirect("/crm_tw_php_js_mysql");
     } else {
         $error = "Invalid credentials";
     }
-
-    $real_user = User::authenticate($_POST['name'], $_POST['pass']);
 }
 
 ?>

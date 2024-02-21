@@ -21,4 +21,4 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-redirect("/blog_php_mysql_tailwind");
+redirect("/crm_tw_php_js_mysql");

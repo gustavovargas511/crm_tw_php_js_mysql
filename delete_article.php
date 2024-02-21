@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($article->delete($connection)) {
-        redirect("/blog_php_mysql_tailwind");
+        redirect("/crm_tw_php_js_mysql");
     }
 }
 ?>

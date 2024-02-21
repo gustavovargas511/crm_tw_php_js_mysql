@@ -3,11 +3,11 @@
 require 'classes/Database.php';
 require 'classes/Article.php';
 require 'includes/routes.php';
-require 'includes/auth.php';
+require 'classes/Auth.php';
 
 session_start();
 
-if (!isLoggedIn()) {
+if (!Auth::isLoggedIn()) {
     die("Unauthorized");
 }
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($article->create($connection)) {
         $article->title = '';
         $article->content = '';
-        redirect("/blog_php_mysql_tailwind/article.php?id={$article->id}");
+        redirect("/crm_tw_php_js_mysql/article.php?id={$article->id}");
     }
 
 }
