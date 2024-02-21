@@ -1,6 +1,6 @@
 <?php
 
-require 'includes/routes.php';
+require 'classes/Url.php';
 
 session_start();
 
@@ -21,4 +21,4 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-redirect("/crm_tw_php_js_mysql");
+Url::redirect("/crm_tw_php_js_mysql");

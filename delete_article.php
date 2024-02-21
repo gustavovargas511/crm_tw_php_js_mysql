@@ -2,7 +2,7 @@
 
 require 'classes/Database.php';
 require 'classes/Article.php';
-require 'includes/routes.php';
+require 'classes/Url.php';
 date_default_timezone_set('America/Mexico_City');
 
 $db = new Database();
@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($article->delete($connection)) {
-        redirect("/crm_tw_php_js_mysql");
+        Url::redirect("/crm_tw_php_js_mysql");
     }
 }
 ?>

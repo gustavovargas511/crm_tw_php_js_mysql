@@ -1,6 +1,6 @@
 <?php
 
-require 'includes/routes.php';
+require 'classes/Url.php';
 require 'classes/User.php';
 require 'classes/Database.php';
 
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (User::authenticate($connection, $_POST['name'], $_POST['pass'])) {
         session_regenerate_id(true);
         $_SESSION['is_logged_in'] = true;
-        redirect("/crm_tw_php_js_mysql");
+        Url::redirect("/crm_tw_php_js_mysql");
     } else {
         $error = "Invalid credentials";
     }

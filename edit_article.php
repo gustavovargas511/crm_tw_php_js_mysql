@@ -2,7 +2,7 @@
 
 require 'classes/Database.php';
 require 'classes/Article.php';
-require 'includes/routes.php';
+require 'classes/Url.php';
 date_default_timezone_set('America/Mexico_City');
 //$errors = [];
 
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $article->updated_at = date('Y-m-d H:i:s');
 
     if ($article->update($connection)) {
-        redirect("/blog_php_mysql_tailwind/article.php?id={$article->id}");
+        Url::redirect("/crm_tw_php_js_mysql/article.php?id={$article->id}");
     }
 }
 
