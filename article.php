@@ -1,10 +1,10 @@
 <?php
 
-require 'classes/Database.php';
-require 'classes/Article.php';
+require 'includes/init.php';
+Auth::requireLogin();
 
-$db = new Database();
-$connection = $db->getConnection();
+$connection = require 'includes/db.php';
+
 
 if (isset($_GET['id'])) {
 
@@ -12,7 +12,6 @@ if (isset($_GET['id'])) {
   $id = $_GET['id'];
 
   $article = Article::getArticleByID($connection, $id);
-
 } else {
 
   $article = null;

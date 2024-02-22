@@ -1,23 +1,15 @@
 <?php
 
-require 'classes/Database.php';
-require 'classes/Article.php';
-require 'classes/Url.php';
-require 'classes/Auth.php';
+require 'includes/init.php';
 
-session_start();
-
-if (!Auth::isLoggedIn()) {
-    die("Unauthorized");
-}
+Auth::requireLogin();
 
 $article = new Article();
 date_default_timezone_set('America/Mexico_City');
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $db = new Database();
-    $connection = $db->getConnection();
+    $connection = require 'includes/db.php';
 
     $article->title = $_POST['title'];
     $article->content = $_POST['content'];

@@ -1,13 +1,11 @@
 <?php
 
-require 'classes/Database.php';
-require 'classes/Article.php';
-require 'classes/Url.php';
+require 'includes/init.php';
+Auth::requireLogin();
+
+$connection = require 'includes/db.php';
+
 date_default_timezone_set('America/Mexico_City');
-
-$db = new Database();
-$connection = $db->getConnection();
-
 
 if (isset($_GET['id'])) {
 
