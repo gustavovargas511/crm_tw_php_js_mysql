@@ -1,10 +1,10 @@
 <?php
 
-require 'includes/init.php';
+require '../includes/init.php';
 
 Auth::requireLogin();
 
-$connection = require 'includes/db.php';
+$connection = require '../includes/db.php';
 
 date_default_timezone_set('America/Mexico_City');
 
@@ -31,14 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $article->updated_at = date('Y-m-d H:i:s');
 
     if ($article->update($connection)) {
-        Url::redirect("/crm_tw_php_js_mysql/article.php?id={$article->id}");
+        Url::redirect("/crm_tw_php_js_mysql/admin/article.php?id={$article->id}");
     }
 }
 
 ?>
 
-<?php require 'includes/header.php' ?>
+<?php require '../includes/header.php' ?>
 <h2>Edit Article</h2>
-<?php require 'includes/ArticleForm.php' ?>
+<?php require '../includes/ArticleForm.php' ?>
 
-<?php require 'includes/footer.php' ?>
+<?php require '../includes/footer.php' ?>

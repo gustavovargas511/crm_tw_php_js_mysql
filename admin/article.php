@@ -1,9 +1,10 @@
 <?php
 
-require 'includes/init.php';
+require '../includes/init.php';
+
 Auth::requireLogin();
 
-$connection = require 'includes/db.php';
+$connection = require '../includes/db.php';
 
 
 if (isset($_GET['id'])) {
@@ -19,7 +20,7 @@ if (isset($_GET['id'])) {
 
 ?>
 
-<?php require 'includes/header.php'; ?>
+<?php require '../includes/header.php'; ?>
 
 <?php if ($article) : ?>
   <div>
@@ -30,8 +31,10 @@ if (isset($_GET['id'])) {
       <p>Updated at: <?= htmlspecialchars($article->updated_at); ?></p>
     <?php endif; ?>
   </div>
+  <a href="edit_article.php?id=<?= $article->id; ?>">Edit</a>
+  <a href="delete_article.php?id=<?= $article->id; ?>">Delete</a>
 <?php else : ?>
   <p>Article not found</p>
 <?php endif; ?>
 
-<?php require 'includes/footer.php'; ?>
+<?php require '../includes/footer.php'; ?>

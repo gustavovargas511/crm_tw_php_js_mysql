@@ -1,9 +1,9 @@
 <?php
 
-require 'includes/init.php';
+require '../includes/init.php';
 Auth::requireLogin();
 
-$connection = require 'includes/db.php';
+$connection = require '../includes/db.php';
 
 date_default_timezone_set('America/Mexico_City');
 
@@ -24,12 +24,12 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($article->delete($connection)) {
-        Url::redirect("/crm_tw_php_js_mysql");
+        Url::redirect("/crm_tw_php_js_mysql/admin");
     }
 }
 ?>
 
-<?php require 'includes/header.php' ?>
+<?php require '../includes/header.php' ?>
 
 <h2>Delete article</h2>
 <form method="post">
@@ -38,4 +38,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <a href="article.php?id=<?= $article->id; ?>">Go back</a>
 </form>
 
-<?php require 'includes/footer.php' ?>
+<?php require '../includes/footer.php' ?>

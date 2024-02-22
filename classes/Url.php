@@ -8,6 +8,8 @@
  */
 class Url
 {
+
+    public CONST ROOT_DIR = "/crm_tw_php_js_mysql";
     /**
      * Url::redirect to another URL on the same site
      * 
