@@ -64,6 +64,51 @@ class Article
     }
 
     /**
+     * Get the total count of articles
+     * 
+     * @param $connection Connection to database
+     * 
+     * @return integer Total count of articles
+     */
+    public static function getTotal($connection)
+    {
+        
+        $sql = "SELECT COUNT(1) " .
+            "FROM articles";
+
+        return $connection->query($sql)->fetchColumn();
+        
+    }
+
+    /**
+     * Get a page of articles
+     * 
+     * @param object $connection Connection to the database
+     * @param integer $limit Number of rows to return
+     * @param integer $offset
+     */
+    public static function getPage($connection, $limit, $offset)
+    {
+        $sql = "SELECT  id, " .
+            "title ," .
+            "content, " .
+            "published_at " .
+            "FROM  articles " .
+            "ORDER  BY published_at " .
+            "LIMIT :limit " .
+            "OFFSET :offset";
+
+        $prepared_sql = $connection->prepare($sql);
+
+        $prepared_sql->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $prepared_sql->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+        $prepared_sql->execute();
+
+        return $prepared_sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Get the article record based on the ID
      * 
      * @param object $connection Connection to the database
@@ -177,7 +222,6 @@ class Article
                 $this->id = $connection->lastInsertId();
                 return true;
             }
-
         } else {
             return false;
         }
