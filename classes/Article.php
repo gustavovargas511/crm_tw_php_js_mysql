@@ -37,6 +37,12 @@ class Article
     public $updated_at;
 
     /**
+     * Publication image file
+     * @var string
+     */
+    public $image_file;
+
+    /**
      * Array for error, if any
      * @array
      */
@@ -72,12 +78,11 @@ class Article
      */
     public static function getTotal($connection)
     {
-        
+
         $sql = "SELECT COUNT(1) " .
             "FROM articles";
 
         return $connection->query($sql)->fetchColumn();
-        
     }
 
     /**
@@ -244,5 +249,27 @@ class Article
         }
 
         return empty($this->errors);
+    }
+
+    /**
+     * Update image property
+     * 
+     * @param object $connection Connection to database
+     * @param string $filename The Filename of the image file
+     * 
+     * @return boolean True if success, False otherwise
+     */
+    public function setImageFile($connection, $filename)
+    {
+        $sql = "UPDATE articles " .
+            "SET image_file = :image_file " .
+            "WHERE id = :id";
+
+        $prepared_sql = $connection->prepare($sql);
+
+        $prepared_sql->bindValue(':image_file', $filename, PDO::PARAM_STR);
+        $prepared_sql->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        return $prepared_sql->execute();
     }
 }
