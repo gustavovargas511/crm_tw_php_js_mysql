@@ -84,14 +84,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination_folder)) {
 
+            $previous_image = $article->image_file;
+
             if ($article->setImageFile($connection, $destination_file)) {
-                Url::redirect("/crm_tw_php_js_mysql/article.php?id={$article->id}");
+
+                if ($previous_image) {
+                    unlink("../../uploads/$previous_image");
+                }
+
+                Url::redirect("/crm_tw_php_js_mysql/admin/edit_article_image.php?id={$article->id}");
             }
         } else {
             throw new Exception('Unable to move uploaded file.');
         }
     } catch (Exception $e) {
-        echo $e->getMessage();
+        $error = $e->getMessage();
     }
 }
 
@@ -100,7 +107,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <?php require '../includes/header.php' ?>
 <h2>Edit Article Image</h2>
 <?php if ($article->image_file) : ?>
-    <img src="../../uploads/<?=$article->image_file; ?>">
+    <img src="../../uploads/<?= $article->image_file; ?>">
+    <a href="delete_article_image.php?id=<?= $article->id; ?>">Delete</a>
+<?php endif; ?>
+<?php if (isset($error)) : ?>
+    <p><?= $error ?></p>
 <?php endif; ?>
 <form method="post" enctype="multipart/form-data">
     <div>

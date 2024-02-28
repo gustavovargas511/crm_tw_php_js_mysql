@@ -267,7 +267,7 @@ class Article
 
         $prepared_sql = $connection->prepare($sql);
 
-        $prepared_sql->bindValue(':image_file', $filename, PDO::PARAM_STR);
+        $prepared_sql->bindValue(':image_file', $filename, $filename == null ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $prepared_sql->bindValue(':id', $this->id, PDO::PARAM_INT);
 
         return $prepared_sql->execute();
