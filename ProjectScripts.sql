@@ -1,3 +1,6 @@
+/*******************
+ * ARTICLE queries *
+ *******************/
 CREATE TABLE articles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -14,13 +17,6 @@ image_file varchar(400) )
 ALTER TABLE articles
 ADD COLUMN category_id INT,
 ADD INDEX idx_category_id (category_id);
-
-ALTER TABLE articles
-ADD FOREIGN KEY (category_id) REFERENCES category(id);
-
-ALTER TABLE articles
-ADD CONSTRAINT fk_articles_category
-  FOREIGN KEY (category_id) REFERENCES category(id);
  
  SHOW CREATE TABLE articles;
 
@@ -55,16 +51,16 @@ INSERT INTO articles (title, content, published_at) VALUES
 
 
 SELECT *
-  FROM articles a 
+  FROM articles a
  ORDER BY published_at DESC;
 
 SELECT COUNT(1)
   FROM articles a 
  ORDER BY published_at DESC;
 
-########################################################
-########################################################
-########################################################
+/****************
+ * USER queries *
+ ****************/
 
 CREATE TABLE user (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -87,9 +83,9 @@ update user SET password = '$2y$10$4rXGhi4ZziOFZYC3cMqDNuDBKh9UtE9JKSbr6brgSdciz
 where username = 'gus';
 
 
-########################################################
-########################################################
-########################################################
+/********************
+ * Category queries *
+ ********************/
 
 CREATE TABLE category (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -115,3 +111,70 @@ SELECT *
   FROM category c
 ORDER BY c.id ASC
 ;
+
+/****************************
+ * ARTICLE-CATEGORY queries *
+ ****************************/
+
+CREATE TABLE article_category (
+	article_id INT NOT NULL,
+	category_id INT NOT NULL
+)
+
+ALTER TABLE article_category
+ADD PRIMARY KEY (category_id, article_id);
+
+#CASCADE added for, if a category/article is deleted all records in join table gets deleted too
+ALTER TABLE article_category
+ADD FOREIGN KEY (category_id) REFERENCES category(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE article_category
+ADD FOREIGN KEY (article_id) REFERENCES articles(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+INSERT INTO article_category (category_id, article_id)
+VALUES
+(1, 29),
+(3, 31),
+(1, 32),
+(3, 33)
+;
+
+
+
+select *
+from article_category ac;
+
+SELECT *
+FROM articles a 
+JOIN article_category ac 
+ON a.id = ac.article_id 
+JOIN category c 
+ON ac.category_id  = c.id
+;
+
+SELECT *
+FROM articles a 
+LEFT JOIN article_category ac 
+ON a.id = ac.article_id 
+LEFT JOIN category c 
+ON ac.category_id  = c.id
+WHERE a.id = 35
+;
+
+
+/***********
+ * Queries *
+ ***********/
+
+
+SELECT a.title, a.content, c.name
+  FROM articles a, category c
+ WHERE a.category_id = c.id
+ ORDER BY published_at DESC;
+
+SELECT a.title, a.content, c.name
+  FROM articles a
+  LEFT JOIN category c
+    ON a.category_id = c.id
+ ORDER BY published_at DESC;
+
