@@ -145,6 +145,53 @@ class Article
     }
 
     /**
+     * Get the article's categories
+     */
+    public function getCategories($connection)
+    {
+        $sql = "SELECT c.* " .
+            "FROM category c " .
+            "JOIN article_category ac " .
+            "ON c.id = ac.category_id " .
+            "WHERE ac.article_id = :id";
+
+        $prepared_sql = $connection->prepare($sql);
+
+        $prepared_sql->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        $prepared_sql->execute();
+
+        return $prepared_sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get the article record based on the ID along with associated categories, if any
+     * 
+     * @param object $connection Connection to the database
+     * @param integer $id the article ID
+     * 
+     * @return array The article data with categories
+     */
+    public static function getWithCategories($connection, $id)
+    {
+        $sql = "SELECT a.*, c.name category_name " .
+            "FROM articles a " .
+            "LEFT JOIN article_category ac " .
+            "ON a.id = ac.article_id " .
+            "LEFT JOIN category c " .
+            "ON ac.category_id  = c.id " .
+            "WHERE a.id = :id";
+
+        $prepared_sql = $connection->prepare($sql);
+
+        $prepared_sql->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $prepared_sql->execute();
+
+        return $prepared_sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Update the article with its current property values
      * 
      * @param object $connection Connection to the database
@@ -271,5 +318,40 @@ class Article
         $prepared_sql->bindValue(':id', $this->id, PDO::PARAM_INT);
 
         return $prepared_sql->execute();
+    }
+
+    /**
+     * Set the article categories
+     * 
+     * @param object $conn Connection to the database
+     * @param array $ids Category IDs
+     * 
+     * @return void
+     */
+    public function setCategories($connection, $ids)
+    {
+
+        if ($ids) {
+            $sql = "INSERT IGNORE INTO article_category (article_id, category_id) " .
+                "VALUES ";
+            
+            $values = [];
+
+            foreach ($ids as $id) {
+                $values[] = "({$this->id}, ?)";
+            }
+
+            $sql .= implode(", ", $values);
+
+            //var_dump($sql);
+            exit;
+
+            $prepared_sql = $connection->prepare($sql);
+
+            foreach ($ids as $id) {
+                $prepared_sql->bindValue(':category_id', $id, PDO::PARAM_INT);
+                $prepared_sql->execute();
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ class ArrayDump
     {
         foreach ($array as $key => $value) {
             echo str_repeat('  ', $indent); // Add indentation
+            echo "<br>";
             echo "[" . $key . "] => ";
 
             if (is_array($value)) {

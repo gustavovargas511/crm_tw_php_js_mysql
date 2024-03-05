@@ -1,6 +1,6 @@
 /*******************
  * ARTICLE queries *
- *******************/
+ *******************/ 
 CREATE TABLE articles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -107,9 +107,10 @@ INSERT INTO category (name) VALUES
 
 
 
-SELECT *
+SELECT id,
+name
   FROM category c
-ORDER BY c.id ASC
+ORDER BY name
 ;
 
 /****************************
@@ -133,10 +134,7 @@ ADD FOREIGN KEY (article_id) REFERENCES articles(id) ON UPDATE CASCADE ON DELETE
 
 INSERT INTO article_category (category_id, article_id)
 VALUES
-(1, 29),
-(3, 31),
-(1, 32),
-(3, 33)
+(3, 7)
 ;
 
 
@@ -158,7 +156,7 @@ LEFT JOIN article_category ac
 ON a.id = ac.article_id 
 LEFT JOIN category c 
 ON ac.category_id  = c.id
-WHERE a.id = 35
+#WHERE a.id = 35
 ;
 
 

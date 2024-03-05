@@ -23,14 +23,21 @@ if (isset($_GET['id'])) {
     die("ID not supplied, arcticle not found.");
 }
 
+//ArrayDump::dump(array_column($article->getCategories($connection), 'id'));
+$category_ids = array_column($article->getCategories($connection), 'id');
+$categories = Category::getAll($connection);
+//ArrayDump::dump($categories);
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-
+    ArrayDump::dump($_POST['category']);
     $article->title = $_POST['title'];
     $article->content = $_POST['content'];
     $article->updated_at = date('Y-m-d H:i:s');
+    $category_ids = $_POST['category'] ?? [];
 
     if ($article->update($connection)) {
+        $article->setCategories($connection, $category_ids);
         Url::redirect("/crm_tw_php_js_mysql/admin/article.php?id={$article->id}");
     }
 }
