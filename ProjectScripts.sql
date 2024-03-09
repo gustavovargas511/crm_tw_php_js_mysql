@@ -156,7 +156,7 @@ LEFT JOIN article_category ac
 ON a.id = ac.article_id 
 LEFT JOIN category c 
 ON ac.category_id  = c.id
-#WHERE a.id = 35
+#WHERE a.id = 7
 ;
 
 

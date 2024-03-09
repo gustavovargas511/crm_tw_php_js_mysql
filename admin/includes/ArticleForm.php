@@ -3,7 +3,7 @@
         <p><?= $err; ?></p>
     <?php endforeach; ?>
 <?php endif; ?>
-<form action="" method="post">
+<form method="post" id="formArticle">
     <div>
         <label for="title">Post Title</label>
         <input type="text" name="title" id="title" value="<?= htmlspecialchars($article->title); ?>">

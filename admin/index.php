@@ -26,12 +26,16 @@ $articles = Article::getPage($connection, $paginator->limit, $paginator->offset)
     <table>
         <thead>
             <th>Title</th>
+            <th>Published Date</th>
         </thead>
         <tbody>
             <?php foreach ($articles as $article) : ?>
                 <tr>
                     <td>
                         <a href="article.php?id=<?= $article['id']; ?>"> <?= htmlspecialchars($article['title']); ?></a>
+                    </td>
+                    <td>
+                     <time><?= $article['published_at']; ?></time>
                     </td>
                 </tr>
             <?php endforeach; ?>
