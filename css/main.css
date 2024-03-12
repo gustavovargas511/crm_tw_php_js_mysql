@@ -1,0 +1,5 @@
+.non_styled_li {
+    /*border: dashed red 1px;*/
+    list-style-type: none;
+    padding: 0px;
+}

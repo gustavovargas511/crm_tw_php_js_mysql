@@ -4,26 +4,26 @@
     <?php endforeach; ?>
 <?php endif; ?>
 <form method="post" id="formArticle">
-    <div>
-        <label for="title">Post Title</label>
-        <input type="text" name="title" id="title" value="<?= htmlspecialchars($article->title); ?>">
+    <div class="form-group mt-2">
+        <label for="title" class="form-label">Post Title</label>
+        <input type="text" class="form-control" name="title" id="title" value="<?= htmlspecialchars($article->title); ?>">
     </div>
-    <div>
-        <label for="content">What do you wanna say?</label>
-        <textarea name="content" id="content" cols="40" rows="4"><?= htmlspecialchars($article->content); ?></textarea>
+    <div class="form-group mt-2">
+        <label for="content" class="form-label">What do you wanna say?</label>
+        <textarea name="content" class="form-control" id="content" cols="40" rows="4"><?= htmlspecialchars($article->content); ?></textarea>
     </div>
-    <fieldset>
+    <fieldset class="mt-2">
         <legend>Categories</legend>
         <?php foreach ($categories as $category) : ?>
-            <div>
-                <input type="checkbox" name="category[]" value="<?= $category['id'] ?>"
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="category[]" value="<?= $category['id'] ?>"
                        id="<?= $category['id'] ?>"
                        <?php if (in_array($category['id'], $category_ids)) : ?> 
                         checked 
                         <?php endif; ?>>
-                <label for="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></label>
+                <label class="form-check-label" for="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></label>
             </div>
         <?php endforeach; ?>
     </fieldset>
-    <button type="submit">Publish!</button>
+    <button class="btn btn-primary mt-3" type="submit">Publish!</button>
 </form>

@@ -150,13 +150,21 @@ JOIN category c
 ON ac.category_id  = c.id
 ;
 
+SELECT c.*
+FROM category c
+JOIN article_category ac
+ON c.id = ac.category_id 
+WHERE ac.article_id = 7
+;
+
+         
 SELECT *
 FROM articles a 
 LEFT JOIN article_category ac 
 ON a.id = ac.article_id 
 LEFT JOIN category c 
 ON ac.category_id  = c.id
-#WHERE a.id = 7
+#WHERE a.id = 35
 ;
 
 

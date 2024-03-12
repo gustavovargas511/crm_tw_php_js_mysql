@@ -23,7 +23,7 @@ $articles = Article::getPage($connection, $paginator->limit, $paginator->offset)
 <?php if (empty($articles)) : ?>
     <p>No articles found</p>
 <?php else : ?>
-    <table>
+    <table class="table table-striped">
         <thead>
             <th>Title</th>
             <th>Published Date</th>
