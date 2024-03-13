@@ -26,6 +26,7 @@
       <?php else : ?>
         <li class="nav-item"><a class="nav-link" href="/crm_tw_php_js_mysql/login.php">Login</a></li>
       <?php endif; ?>
+      <li class="nav-item"><a class="nav-link" href="/crm_tw_php_js_mysql/contact.php">Contact</a></li>
     </ul>
   </nav>
 

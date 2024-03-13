@@ -10,12 +10,27 @@ $("a.delete_article").on("click", function (e) {
   }
 });
 
-$("#formArticle").validate({
+/*$("#formContact").validate({
   rules: {
     title: {
       required: true,
     },
     content: {
+      required: true,
+    },
+  },
+});*/
+
+$("#formContact").validate({
+  rules: {
+    email: {
+      required: true,
+      email: true,
+    },
+    subject: {
+      required: true,
+    },
+    message: {
       required: true,
     },
   },
