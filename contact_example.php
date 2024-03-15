@@ -38,16 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         try {
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp.your_host.com';                     //Set the SMTP server to send through
+            $mail->Host       = SMTP_HOST;                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'your_mail@your_mail.com';                     //SMTP username
-            $mail->Password   = 'your_password';                               //SMTP password
+            $mail->Username   = SMTP_USER;                     //SMTP username
+            $mail->Password   = SMTP_PASS;                               //SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
             $mail->Port       = 465;
 
             //Recipients
-            $mail->setFrom('sender@yourmail.com', 'Contact Page!');
-            $mail->addAddress('recipient@mail.com');     //Add a recipient
+            $mail->setFrom('crm@sender.com', 'Contact Page!');
+            $mail->addAddress('crm@recipient.com');     //Add a recipient
             $mail->addReplyTo($email);
             $mail->isHTML(true);
             $mail->Subject = $subject;
