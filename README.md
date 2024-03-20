@@ -1,4 +1,4 @@
-This is a BLOG built in HTML, Tailwindcss, MariaDB (MySQL), Php and Javascript.
+This is a CRM/BLOG built in HTML, CSS, MariaDB (MySQL), Php and Javascript.
 
 Feel free to use it as an example, or template.
 
